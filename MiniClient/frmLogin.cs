@@ -263,7 +263,8 @@ namespace MiniClient
 
 		private void cmdLogin_Click(object sender, System.EventArgs e)
 		{
-            Jid jid = new Jid(txtJid.Text + "@10.185.1.95");
+            //Jid jid = new Jid(txtJid.Text + "@10.185.1.95");
+            Jid jid = new Jid(txtJid.Text + "@127.0.0.1");
 
             //_connection.ConnectServer               = "127.0.0.1";
             _connection.Server			            = jid.Server;

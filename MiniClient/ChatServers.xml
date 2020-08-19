@@ -1,6 +1,7 @@
-<ChatServers>   
-   <Server>conference.jabber.org</Server>
-   <Server>chat.amessage.info</Server>
-   <Server>conference.jabber.ru</Server>
-   <Server>forestryroom.10.185.1.95</Server>
+<ChatServers>
+  <Server>jhecis</Server>
+  <!--<Server>conference.jabber.org</Server>
+  <Server>chat.amessage.info</Server>
+  <Server>conference.jabber.ru</Server>
+  <Server>forestryroom.10.185.1.95</Server>-->
 </ChatServers>

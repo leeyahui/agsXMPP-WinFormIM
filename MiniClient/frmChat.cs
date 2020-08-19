@@ -27,7 +27,8 @@ namespace MiniClient
 		private System.Windows.Forms.RichTextBox rtfSend;
 		private System.Windows.Forms.Splitter splitter1;
 		private System.Windows.Forms.RichTextBox rtfChat;
-		private string					_nickname;
+        private Button btnPublickSend;
+        private string					_nickname;
 
 		
 		public frmChat(Jid jid, XmppClientConnection con, string nickname)
@@ -103,6 +104,7 @@ namespace MiniClient
             this.rtfSend = new System.Windows.Forms.RichTextBox();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.rtfChat = new System.Windows.Forms.RichTextBox();
+            this.btnPublickSend = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -160,10 +162,22 @@ namespace MiniClient
             this.rtfChat.TabIndex = 10;
             this.rtfChat.Text = "";
             // 
+            // btnPublickSend
+            // 
+            this.btnPublickSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPublickSend.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnPublickSend.Location = new System.Drawing.Point(222, 180);
+            this.btnPublickSend.Name = "btnPublickSend";
+            this.btnPublickSend.Size = new System.Drawing.Size(86, 26);
+            this.btnPublickSend.TabIndex = 11;
+            this.btnPublickSend.Text = "publik Send";
+            this.btnPublickSend.Click += new System.EventHandler(this.btnPublickSend_Click);
+            // 
             // frmChat
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
             this.ClientSize = new System.Drawing.Size(424, 238);
+            this.Controls.Add(this.btnPublickSend);
             this.Controls.Add(this.rtfChat);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.rtfSend);
@@ -223,6 +237,17 @@ namespace MiniClient
 			    IncomingMessage(msg);
 		}
 
-		
-	}
+        private void btnPublickSend_Click(object sender, EventArgs e)
+        {
+            agsXMPP.protocol.client.Message msg = new agsXMPP.protocol.client.Message();
+
+            msg.Type = MessageType.chat;
+            //msg.To = m_Jid;
+            msg.Body = rtfSend.Text;
+
+            _connection.Send(msg);
+            OutgoingMessage(msg);
+            rtfSend.Text = "";
+        }
+    }
 }

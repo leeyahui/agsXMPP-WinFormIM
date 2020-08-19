@@ -29,8 +29,8 @@ namespace MiniClient
         // DONT USE THIS PROXY FOR PRODUCTION. THIS PROXY IS FOR RESTING ONLY. THIS PROXY IS ALSO NOT RUNNING ALL THE TIME
         // Install your own server with bytestream proxy or the external proxy65 module
         //const string PROXY = "proxy.ag-software.de";
-        const string PROXY = "10.185.1.95";
-        //const string PROXY = "127.0.0.1";
+        //const string PROXY = "10.185.1.95";
+        const string PROXY = "127.0.0.1";
 
         //const string PROXY = "proxy.netlab.cz";
         //const string PROXY = "proxy.jabber.org";        
