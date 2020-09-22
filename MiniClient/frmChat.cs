@@ -11,43 +11,43 @@ using agsXMPP.Collections;
 
 namespace MiniClient
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	public class frmChat : System.Windows.Forms.Form
-	{
-				
-		private System.ComponentModel.Container components = null;
+    /// <summary>
+    /// 
+    /// </summary>
+    public class frmChat : System.Windows.Forms.Form
+    {
 
-		private XmppClientConnection	_connection;
-		private Jid						m_Jid;
-		private System.Windows.Forms.StatusBar statusBar1;
-		private System.Windows.Forms.PictureBox pictureBox1;
-		private System.Windows.Forms.Button cmdSend;
-		private System.Windows.Forms.RichTextBox rtfSend;
-		private System.Windows.Forms.Splitter splitter1;
-		private System.Windows.Forms.RichTextBox rtfChat;
+        private System.ComponentModel.Container components = null;
+
+        private XmppClientConnection _connection;
+        private Jid m_Jid;
+        private System.Windows.Forms.StatusBar statusBar1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button cmdSend;
+        private System.Windows.Forms.RichTextBox rtfSend;
+        private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.RichTextBox rtfChat;
         private Button btnPublickSend;
-        private string					_nickname;
+        private string _nickname;
 
-		
-		public frmChat(Jid jid, XmppClientConnection con, string nickname)
-		{
-			m_Jid		= jid;
-			_connection = con;
-			_nickname	= nickname;
-		
-			
 
-			InitializeComponent();
-			
-			this.Text = "Chat with " + nickname;
-			
-			Util.ChatForms.Add(m_Jid.Bare.ToLower(), this);
+        public frmChat(Jid jid, XmppClientConnection con, string nickname)
+        {
+            m_Jid = jid;
+            _connection = con;
+            _nickname = nickname;
 
-			// Setup new Message Callback
+
+
+            InitializeComponent();
+
+            this.Text = "Chat with " + nickname;
+
+            Util.ChatForms.Add(m_Jid.Bare.ToLower(), this);
+
+            // Setup new Message Callback
             con.MessageGrabber.Add(jid, new BareJidComparer(), new MessageCB(MessageCallback), null);
-		}
+        }
 
         public frmChat(Jid jid, XmppClientConnection con, string nickname, bool privateChat)
         {
@@ -70,34 +70,34 @@ namespace MiniClient
                 con.MessageGrabber.Add(jid, new FullJidComparer(), new MessageCB(MessageCallback), null);
         }
 
-		public Jid Jid
-		{
-			get { return m_Jid; }
-			set { m_Jid = value; }
-		}
-		/// <summary>
-		/// 
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-			
-			Util.ChatForms.Remove(m_Jid.Bare.ToLower());
-            _connection.MessageGrabber.Remove(m_Jid);
-			_connection = null;
-		}
+        public Jid Jid
+        {
+            get { return m_Jid; }
+            set { m_Jid = value; }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
 
-		#region Form-Designer Code
-		
-		private void InitializeComponent()
-		{
+            Util.ChatForms.Remove(m_Jid.Bare.ToLower());
+            _connection.MessageGrabber.Remove(m_Jid);
+            _connection = null;
+        }
+
+        #region Form-Designer Code
+
+        private void InitializeComponent()
+        {
             this.statusBar1 = new System.Windows.Forms.StatusBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.cmdSend = new System.Windows.Forms.Button();
@@ -189,42 +189,42 @@ namespace MiniClient
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
-		private void OutgoingMessage(agsXMPP.protocol.client.Message msg)
-		{
-			rtfChat.SelectionColor = Color.Blue;
-			rtfChat.AppendText("Me said: ");
-			rtfChat.SelectionColor = Color.Black;
-			rtfChat.AppendText(msg.Body);
-			rtfChat.AppendText("\r\n");
-		}
+        private void OutgoingMessage(agsXMPP.protocol.client.Message msg)
+        {
+            rtfChat.SelectionColor = Color.Blue;
+            rtfChat.AppendText("Me said: ");
+            rtfChat.SelectionColor = Color.Black;
+            rtfChat.AppendText(msg.Body);
+            rtfChat.AppendText("\r\n");
+        }
 
-		public void IncomingMessage(agsXMPP.protocol.client.Message msg)
-		{
-			rtfChat.SelectionColor = Color.Red;
-			rtfChat.AppendText(_nickname + " said: ");
-			rtfChat.SelectionColor = Color.Black;
-			rtfChat.AppendText(msg.Body);
-			rtfChat.AppendText("\r\n");
-		}
+        public void IncomingMessage(agsXMPP.protocol.client.Message msg)
+        {
+            rtfChat.SelectionColor = Color.Red;
+            rtfChat.AppendText(_nickname + " said: ");
+            rtfChat.SelectionColor = Color.Black;
+            rtfChat.AppendText(msg.Body);
+            rtfChat.AppendText("\r\n");
+        }
 
-		private void cmdSend_Click(object sender, System.EventArgs e)
-		{
-			agsXMPP.protocol.client.Message msg = new agsXMPP.protocol.client.Message();
+        private void cmdSend_Click(object sender, System.EventArgs e)
+        {
+            agsXMPP.protocol.client.Message msg = new agsXMPP.protocol.client.Message();
 
-			msg.Type	= MessageType.chat;
-			msg.To		= m_Jid;
-			msg.Body	= rtfSend.Text;
-			
-			_connection.Send(msg);
-			OutgoingMessage(msg);
-			rtfSend.Text = "";
-		}
+            msg.Type = MessageType.chat;
+            msg.To = m_Jid;
+            msg.Body = rtfSend.Text;
 
-		private void MessageCallback(object sender, agsXMPP.protocol.client.Message msg, object data)
-		{
+            _connection.Send(msg);
+            OutgoingMessage(msg);
+            rtfSend.Text = "";
+        }
+
+        private void MessageCallback(object sender, agsXMPP.protocol.client.Message msg, object data)
+        {
             if (InvokeRequired)
             {
                 // Windows Forms are not Thread Safe, we need to invoke this :(
@@ -232,10 +232,10 @@ namespace MiniClient
                 BeginInvoke(new MessageCB(MessageCallback), new object[] { sender, msg, data });
                 return;
             }
-            
+
             if (msg.Body != null)
-			    IncomingMessage(msg);
-		}
+                IncomingMessage(msg);
+        }
 
         private void btnPublickSend_Click(object sender, EventArgs e)
         {

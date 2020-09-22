@@ -19,9 +19,6 @@
  * http://www.ag-software.de														 *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-using System;
-using System.Text;
-
 namespace agsXMPP.Factory
 {
     /// <summary>
@@ -39,8 +36,8 @@ namespace agsXMPP.Factory
         /// <param name="Namespace"></param>
         public ElementType(string TagName, string Namespace)
         {
-            this.m_TagName      = TagName;
-            this.m_Namespace    = Namespace;
+            this.m_TagName = TagName;
+            this.m_Namespace = Namespace;
         }
 
         public override string ToString()

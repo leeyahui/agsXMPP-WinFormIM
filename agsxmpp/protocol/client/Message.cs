@@ -19,231 +19,230 @@
  * http://www.ag-software.de														 *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-using System;
-
-using agsXMPP.protocol.x;
-using agsXMPP.protocol.extensions.html;
 using agsXMPP.protocol.extensions.chatstates;
+using agsXMPP.protocol.extensions.html;
 using agsXMPP.protocol.extensions.nickname;
 using agsXMPP.protocol.extensions.shim;
+using agsXMPP.protocol.x;
+using System;
 
 namespace agsXMPP.protocol.client
 {
-	/// <summary>
-	/// This class represents a XMPP message.
-	/// </summary>
-	public class Message : Base.Stanza
-	{
-		#region << Constructors >>
-		public Message()
-		{
-			this.TagName	= "message";
-			this.Namespace	= Uri.CLIENT;
-		}
+    /// <summary>
+    /// This class represents a XMPP message.
+    /// </summary>
+    public class Message : Base.Stanza
+    {
+        #region << Constructors >>
+        public Message()
+        {
+            this.TagName = "message";
+            this.Namespace = Uri.CLIENT;
+        }
 
         public Message(Jid to) : this()
         {
-            To      = to;
+            To = to;
         }
-		public Message(Jid to, string body) : this(to)
-		{			
-			Body	= body;
-		}
+        public Message(Jid to, string body) : this(to)
+        {
+            Body = body;
+        }
 
         public Message(Jid to, Jid from) : this()
         {
-            To      = to;
-            From    = from;
+            To = to;
+            From = from;
         }
 
-		public Message(string to, string body) : this()
-		{
-			To		= new Jid(to);
-			Body	= body;
-		}
+        public Message(string to, string body) : this()
+        {
+            To = new Jid(to);
+            Body = body;
+        }
 
-		public Message(Jid to, string body, string subject) : this()
-		{
-			To		= to;
-			Body	= body;
-			Subject	= subject;
-		}
+        public Message(Jid to, string body, string subject) : this()
+        {
+            To = to;
+            Body = body;
+            Subject = subject;
+        }
 
-		public Message(string to, string body, string subject) : this()
-		{
-			To		= new Jid(to);
-			Body	= body;
-			Subject	= subject;
-		}
+        public Message(string to, string body, string subject) : this()
+        {
+            To = new Jid(to);
+            Body = body;
+            Subject = subject;
+        }
 
-		public Message(string to, string body, string subject, string thread) : this()
-		{
-			To		= new Jid(to);
-			Body	= body;
-			Subject	= subject;
-			Thread	= thread;
-		}
+        public Message(string to, string body, string subject, string thread) : this()
+        {
+            To = new Jid(to);
+            Body = body;
+            Subject = subject;
+            Thread = thread;
+        }
 
-		public Message(Jid to, string body, string subject, string thread) : this()
-		{
-			To		= to;
-			Body	= body;
-			Subject	= subject;
-			Thread	= thread;
-		}
+        public Message(Jid to, string body, string subject, string thread) : this()
+        {
+            To = to;
+            Body = body;
+            Subject = subject;
+            Thread = thread;
+        }
 
-		public Message(string to, MessageType type, string body) : this()
-		{
-			To		= new Jid(to);
-			Type	= type;
-			Body	= body;
-		}
+        public Message(string to, MessageType type, string body) : this()
+        {
+            To = new Jid(to);
+            Type = type;
+            Body = body;
+        }
 
-		public Message(Jid to, MessageType type, string body) : this()
-		{
-			To		= to;
-			Type	= type;
-			Body	= body;
-		}
+        public Message(Jid to, MessageType type, string body) : this()
+        {
+            To = to;
+            Type = type;
+            Body = body;
+        }
 
-		public Message(string to, MessageType type, string body, string subject) : this()
-		{
-			To		= new Jid(to);
-			Type	= type;
-			Body	= body;
-			Subject	= subject;
-		}
+        public Message(string to, MessageType type, string body, string subject) : this()
+        {
+            To = new Jid(to);
+            Type = type;
+            Body = body;
+            Subject = subject;
+        }
 
-		public Message(Jid to, MessageType type, string body, string subject) : this()
-		{
-			To		= to;
-			Type	= type;
-			Body	= body;
-			Subject	= subject;
-		}
+        public Message(Jid to, MessageType type, string body, string subject) : this()
+        {
+            To = to;
+            Type = type;
+            Body = body;
+            Subject = subject;
+        }
 
-		public Message(string to, MessageType type, string body, string subject, string thread) : this()
-		{
-			To		= new Jid(to);
-			Type	= type;
-			Body	= body;
-			Subject	= subject;
-			Thread	= thread;
-		}
+        public Message(string to, MessageType type, string body, string subject, string thread) : this()
+        {
+            To = new Jid(to);
+            Type = type;
+            Body = body;
+            Subject = subject;
+            Thread = thread;
+        }
 
-		public Message(Jid to, MessageType type, string body, string subject, string thread) : this()
-		{
-			To		= to;
-			Type	= type;
-			Body	= body;
-			Subject	= subject;
-			Thread	= thread;
-		}
-	
-		public Message(Jid to, Jid from, string body) : this()
-		{
-			To		= to;
-			From	= from;
-			Body	= body;
-		}
+        public Message(Jid to, MessageType type, string body, string subject, string thread) : this()
+        {
+            To = to;
+            Type = type;
+            Body = body;
+            Subject = subject;
+            Thread = thread;
+        }
 
-		public Message(Jid to, Jid from, string body, string subject) : this()
-		{
-			To		= to;
-			From	= from;
-			Body	= body;
-			Subject	= subject;
-		}
+        public Message(Jid to, Jid from, string body) : this()
+        {
+            To = to;
+            From = from;
+            Body = body;
+        }
 
-		public Message(Jid to, Jid from, string body, string subject, string thread) : this()
-		{
-			To		= to;
-			From	= from;
-			Body	= body;
-			Subject	= subject;
-			Thread	= thread;
-		}
+        public Message(Jid to, Jid from, string body, string subject) : this()
+        {
+            To = to;
+            From = from;
+            Body = body;
+            Subject = subject;
+        }
 
-		public Message(Jid to, Jid from, MessageType type, string body) : this()
-		{
-			To		= to;
-			From	= from;
-			Type	= type;
-			Body	= body;
-		}
+        public Message(Jid to, Jid from, string body, string subject, string thread) : this()
+        {
+            To = to;
+            From = from;
+            Body = body;
+            Subject = subject;
+            Thread = thread;
+        }
 
-		public Message(Jid to, Jid from, MessageType type, string body, string subject) : this()
-		{
-			To		= to;
-			From	= from;
-			Type	= type;
-			Body	= body;
-			Subject	= subject;
-		}
+        public Message(Jid to, Jid from, MessageType type, string body) : this()
+        {
+            To = to;
+            From = from;
+            Type = type;
+            Body = body;
+        }
 
-		public Message(Jid to, Jid from, MessageType type, string body, string subject, string thread) : this()
-		{
-			To = to;
-			From	= from;
-			Type	= type;
-			Body	= body;
-			Subject	= subject;
-			Thread	= thread;
-		} 
+        public Message(Jid to, Jid from, MessageType type, string body, string subject) : this()
+        {
+            To = to;
+            From = from;
+            Type = type;
+            Body = body;
+            Subject = subject;
+        }
 
-		#endregion
+        public Message(Jid to, Jid from, MessageType type, string body, string subject, string thread) : this()
+        {
+            To = to;
+            From = from;
+            Type = type;
+            Body = body;
+            Subject = subject;
+            Thread = thread;
+        }
 
-		#region << Properties >>
-		/// <summary>
-		/// The body of the message. This contains the message text.
-		/// </summary>
+        #endregion
+
+        #region << Properties >>
+        /// <summary>
+        /// The body of the message. This contains the message text.
+        /// </summary>
         public string Body
-		{
-			set	{ SetTag("body", value); }
-			get { return GetTag("body"); }
-		}
+        {
+            set { SetTag("body", value); }
+            get { return GetTag("body"); }
+        }
 
         /// <summary>
         /// subject of this message. Its like a subject in a email. The Subject is optional.
         /// </summary>
 		public string Subject
-		{
-			set	{ SetTag("subject", value);	}
-			get	{ return GetTag("subject");	}
-		}
+        {
+            set { SetTag("subject", value); }
+            get { return GetTag("subject"); }
+        }
 
         /// <summary>
         /// messages and conversations could be threaded. You can compare this with threads in newsgroups or forums.
         /// Threads are optional.
         /// </summary>
 		public string Thread
-		{
-			set	{ SetTag("thread", value); }
-			get	{ return GetTag("thread"); }
-		}
+        {
+            set { SetTag("thread", value); }
+            get { return GetTag("thread"); }
+        }
 
         /// <summary>
         /// message type (chat, groupchat, normal, headline or error).
         /// </summary>
 		public MessageType Type
-		{
-			get 
-			{ 
-				return (MessageType) GetAttributeEnum("type", typeof(MessageType)); 
-			}
-			set 
-			{ 
-				if (value == MessageType.normal)
-					RemoveAttribute("type");
-				else
-					SetAttribute("type", value.ToString()); 
-			}
-		}
+        {
+            get
+            {
+                return (MessageType)GetAttributeEnum("type", typeof(MessageType));
+            }
+            set
+            {
+                if (value == MessageType.normal)
+                    RemoveAttribute("type");
+                else
+                    SetAttribute("type", value.ToString());
+            }
+        }
 
         /// <summary>
         /// Error Child Element
         /// </summary>
-        public agsXMPP.protocol.client.Error Error
+        public Error Error
         {
             get
             {
@@ -265,7 +264,7 @@ namespace agsXMPP.protocol.client
         /// </summary>
         public Html Html
         {
-            get { return (Html) SelectSingleElement(typeof(Html)); }
+            get { return (Html)SelectSingleElement(typeof(Html)); }
             set
             {
                 RemoveTag(typeof(Html));
@@ -287,7 +286,7 @@ namespace agsXMPP.protocol.client
             {
                 if (HasTag(typeof(Event)))
                     RemoveTag(typeof(Event));
-                
+
                 if (value != null)
                     this.AddChild(value);
             }
@@ -351,7 +350,7 @@ namespace agsXMPP.protocol.client
                     this.AddChild(value);
             }
         }
-        
+
         #region << Chatstate Properties >>   
 
         public Chatstate Chatstate
@@ -375,7 +374,7 @@ namespace agsXMPP.protocol.client
             {
                 RemoveChatstate();
                 switch (value)
-                {                    
+                {
                     case Chatstate.active:
                         AddChild(new Active());
                         break;
@@ -402,7 +401,7 @@ namespace agsXMPP.protocol.client
             RemoveTag(typeof(Composing));
             RemoveTag(typeof(Paused));
             RemoveTag(typeof(Gone));
-        }      
+        }
         #endregion
 
         #endregion
@@ -417,8 +416,8 @@ namespace agsXMPP.protocol.client
         {
             string guid = Guid.NewGuid().ToString().ToLower();
             Thread = guid;
-            
-            return guid;            
+
+            return guid;
         }
 #endif        
         #endregion

@@ -1,5 +1,6 @@
 <ChatServers>
   <Server>jhecis</Server>
+  <Server>conference.jhecis</Server>
   <!--<Server>conference.jabber.org</Server>
   <Server>chat.amessage.info</Server>
   <Server>conference.jabber.ru</Server>

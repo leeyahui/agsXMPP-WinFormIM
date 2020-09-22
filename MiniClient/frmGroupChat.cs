@@ -19,25 +19,25 @@ namespace MiniClient
         #region << Constructors >>        
         public frmGroupChat(XmppClientConnection xmppCon, Jid roomJid, string Nickname)
         {
-            InitializeComponent();   
+            InitializeComponent();
             m_RoomJid = roomJid;
             m_XmppCon = xmppCon;
             m_Nickname = Nickname;
 
             Util.GroupChatForms.Add(roomJid.Bare.ToLower(), this);
-            
+
             // Setup new Message Callback
             m_XmppCon.MessageGrabber.Add(roomJid, new BareJidComparer(), new MessageCB(MessageCallback), null);
-            
+
             // Setup new Presence Callback
             m_XmppCon.PresenceGrabber.Add(roomJid, new BareJidComparer(), new PresenceCB(PresenceCallback), null);
 
         }
         #endregion
 
-        private Jid                     m_RoomJid;
-        private XmppClientConnection    m_XmppCon;
-        private string                  m_Nickname;
+        private Jid m_RoomJid;
+        private XmppClientConnection m_XmppCon;
+        private string m_Nickname;
 
         private void frmGroupChat_Load(object sender, EventArgs e)
         {
@@ -62,7 +62,7 @@ namespace MiniClient
                 m_XmppCon.Send(pres);
             }
         }
-       
+
         /// <summary>
         /// 
         /// </summary>
@@ -78,7 +78,7 @@ namespace MiniClient
                 BeginInvoke(new MessageCB(MessageCallback), new object[] { sender, msg, data });
                 return;
             }
-            
+
             if (msg.Type == MessageType.groupchat)
                 IncomingMessage(msg);
         }
@@ -122,8 +122,8 @@ namespace MiniClient
             else
             {
                 int imageIdx = Util.GetRosterImageIndex(pres);
-                
-                ListViewItem lv = new ListViewItem(pres.From.Resource);               
+
+                ListViewItem lv = new ListViewItem(pres.From.Resource);
 
                 lv.Tag = pres.From.ToString();
                 lv.SubItems.Add(pres.Status == null ? "" : pres.Status);
@@ -157,6 +157,12 @@ namespace MiniClient
                 return;
             }
 
+            if (msg.XDelay != null)
+            {
+                rtfChat.SelectionColor = Color.Blue;
+                rtfChat.AppendText(msg.XDelay.Stamp.ToString() + " ");
+            }
+
             if (msg.Subject != null)
             {
                 txtSubject.Text = msg.Subject;
@@ -164,7 +170,7 @@ namespace MiniClient
                 rtfChat.SelectionColor = Color.DarkGreen;
                 // The Nickname of the sender is in GroupChat in the Resource of the Jid
                 rtfChat.AppendText(msg.From.Resource + " changed subject: ");
-                rtfChat.SelectionColor = Color.Black;                
+                rtfChat.SelectionColor = Color.Black;
                 rtfChat.AppendText(msg.Subject);
                 rtfChat.AppendText("\r\n");
             }
@@ -217,7 +223,7 @@ namespace MiniClient
             m_XmppCon.Send(msg);
         }
 
-        
+
 
     }
 }

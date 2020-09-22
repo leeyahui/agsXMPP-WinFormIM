@@ -19,34 +19,32 @@
  * http://www.ag-software.de														 *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-using System;
-
-using agsXMPP.protocol.extensions.primary;
 using agsXMPP.protocol.extensions.nickname;
+using agsXMPP.protocol.extensions.primary;
 
 namespace agsXMPP.protocol.client
 {
-	/// <summary>
-	/// Zusammenfassung für Presence.
-	/// </summary>
-	public class Presence : Base.Stanza
+    /// <summary>
+    /// Zusammenfassung für Presence.
+    /// </summary>
+    public class Presence : Base.Stanza
     {
         #region << Constructors >>
         public Presence()
-		{
-			this.TagName	= "presence";
-			this.Namespace	= Uri.CLIENT;
-		}
+        {
+            this.TagName = "presence";
+            this.Namespace = Uri.CLIENT;
+        }
 
-		public Presence(ShowType show, string status) : this()
-		{			
-			this.Show		= show;
-			this.Status		= status;
-		}
+        public Presence(ShowType show, string status) : this()
+        {
+            this.Show = show;
+            this.Status = status;
+        }
 
-		public Presence(ShowType show, string status, int priority) : this(show, status)
-		{
-			this.Priority	= priority;
+        public Presence(ShowType show, string status, int priority) : this(show, status)
+        {
+            this.Priority = priority;
         }
         #endregion
 
@@ -56,10 +54,10 @@ namespace agsXMPP.protocol.client
         /// (e.g., "In a meeting").
         /// </summary>
 		public string Status
-		{
-			get { return GetTag("status"); }
-			set { SetTag("status", value); }
-		}
+        {
+            get { return GetTag("status"); }
+            set { SetTag("status", value); }
+        }
 
         /// <summary>
         /// The type of a presence stanza is OPTIONAL. 
@@ -69,21 +67,21 @@ namespace agsXMPP.protocol.client
         /// presence stanza.
         /// </summary>
 		public PresenceType Type
-		{
-			get	
-			{
-				return (PresenceType) GetAttributeEnum("type", typeof(PresenceType));
-			}
-			set
-			{
-				// dont add type="available"
-				if (value == PresenceType.available)
-					RemoveAttribute("type");
-				else
-					SetAttribute("type", value.ToString()); 
-			}
+        {
+            get
+            {
+                return (PresenceType)GetAttributeEnum("type", typeof(PresenceType));
+            }
+            set
+            {
+                // dont add type="available"
+                if (value == PresenceType.available)
+                    RemoveAttribute("type");
+                else
+                    SetAttribute("type", value.ToString());
+            }
 
-		}
+        }
 
         /// <summary>
         /// Error Child Element
@@ -110,69 +108,69 @@ namespace agsXMPP.protocol.client
         /// status of an entity or specific resource.
         /// </summary>
 		public ShowType Show
-		{
-			get { return (ShowType) GetTagEnum("show", typeof(ShowType)); }
-			set 
-			{
+        {
+            get { return (ShowType)GetTagEnum("show", typeof(ShowType)); }
+            set
+            {
                 if (value != ShowType.NONE)
                     SetTag("show", value.ToString());
                 else
                     RemoveAttribute("show");
-			}
-		}
-		
-		/// <summary>
+            }
+        }
+
+        /// <summary>
         /// The priority level of the resource. The value MUST be an integer between -128 and +127. 
         /// If no priority is provided, a server SHOULD consider the priority to be zero.         
-		/// </summary>
+        /// </summary>
         /// <remarks>
         /// For information regarding the semantics of priority values in stanza routing 
         /// within instant messaging and presence applications, refer to Server Rules 
         /// for Handling XML StanzasServer Rules for Handling XML Stanzas.
         /// </remarks>
-		public int Priority
-		{
-			get 
-			{ 
-				try
-				{
-					return int.Parse(GetTag("priority")); 
-				}
-				catch
-				{
-					return 0;
-				}
-			}
-			set { SetTag("priority", value.ToString()); }
-		}
+        public int Priority
+        {
+            get
+            {
+                try
+                {
+                    return int.Parse(GetTag("priority"));
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+            set { SetTag("priority", value.ToString()); }
+        }
 
-		public x.Delay XDelay
-		{
-			get	{ return SelectSingleElement(typeof(x.Delay)) as x.Delay; }
-			set	
+        public x.Delay XDelay
+        {
+            get { return SelectSingleElement(typeof(x.Delay)) as x.Delay; }
+            set
             {
                 if (HasTag(typeof(x.Delay)))
                     RemoveTag(typeof(x.Delay));
 
                 if (value != null)
-                    this.AddChild(value);            
+                    this.AddChild(value);
             }
-		}
-		
-		public bool IsPrimary
-		{
-			get
-			{
-				return GetTag(typeof(Primary)) == null ? false : true;
-			}
-			set
-			{
-				if (value)
-					SetTag(typeof(Primary));
-				else
-					RemoveTag(typeof(Primary));
-			}
-		}
+        }
+
+        public bool IsPrimary
+        {
+            get
+            {
+                return GetTag(typeof(Primary)) == null ? false : true;
+            }
+            set
+            {
+                if (value)
+                    SetTag(typeof(Primary));
+                else
+                    RemoveTag(typeof(Primary));
+            }
+        }
 
         /// <summary>
         /// 
@@ -184,7 +182,7 @@ namespace agsXMPP.protocol.client
             {
                 if (HasTag(typeof(x.muc.User)))
                     RemoveTag(typeof(x.muc.User));
-                
+
                 if (value != null)
                     this.AddChild(value);
             }
@@ -208,5 +206,5 @@ namespace agsXMPP.protocol.client
                     this.AddChild(value);
             }
         }
-	}
+    }
 }
